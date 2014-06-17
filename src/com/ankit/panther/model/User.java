@@ -10,23 +10,28 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="user")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="insert_dttm")
+	@Column(name="insert_dttm", nullable=false)
 	private Date insertDttm;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="last_mod_dttm")
+	@Column(name="last_mod_dttm", nullable=false)
 	private Date lastModDttm;
 
+	@Column(nullable=false, length=200)
 	private String password;
 
+	@Column(nullable=false, length=45)
 	private String username;
 
 	public User() {

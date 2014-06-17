@@ -10,14 +10,18 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="item")
 @NamedQuery(name="Item.findAll", query="SELECT i FROM Item i")
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int id;
 
-	private String desc;
+	@Column(length=100)
+	private String description;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="due_date_dttm")
@@ -27,10 +31,14 @@ public class Item implements Serializable {
 	@Column(name="ins_dttm")
 	private Date insDttm;
 
+	@Column(name="is_completed")
+	private Boolean isCompleted;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="last_mod_dttm")
 	private Date lastModDttm;
 
+	@Column(length=60)
 	private String title;
 
 	//uni-directional many-to-one association to User
@@ -49,12 +57,12 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	public String getDesc() {
-		return this.desc;
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getDueDateDttm() {
@@ -71,6 +79,14 @@ public class Item implements Serializable {
 
 	public void setInsDttm(Date insDttm) {
 		this.insDttm = insDttm;
+	}
+
+	public Boolean getIsCompleted() {
+		return this.isCompleted;
+	}
+
+	public void setIsCompleted(Boolean isCompleted) {
+		this.isCompleted = isCompleted;
 	}
 
 	public Date getLastModDttm() {
