@@ -1,0 +1,65 @@
+<!doctype html>
+<html ng-app>
+<head>
+<title>Hello AngularJS</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
+<script src="js/main.js">
+</script>
+</head>
+
+<body>
+	<div ng-controller="Hello">
+	<a ng-click="hideCompleted()" href="">Show Completed - {{showCompletedBool}}</a>
+		<table border=1>
+			<tr>
+				<th width=75px>id</th>
+				<th width=150px>Title</th>
+				<th width=250px>Desc</th>
+				<th width=75px>Complete</th>
+				<th width=250px>Actions</th>
+			</tr>
+			<tr ng-repeat="item in items | filter:{isCompleted:false}"">
+
+				<td>{{item.id}}</td>
+				<td>{{item.title}}</td>
+				<td>{{item.description}}</td>
+				<td>{{item.isCompleted}}</td>
+				<td><a ng-click="remove(item.id)" href="">Remove Item</a>|<a ng-if="item.isCompleted == false" ng-click="completeItem(item.id)" href="">Mark As Done</a></td>
+				
+
+			</tr>
+			<tr ng-if="showCompletedBool != false" ng-repeat="item in items | filter:{isCompleted:true}"">
+
+				<td><s>{{item.id}}</s></td>
+				<td><s>{{item.title}}</s></td>
+				<td><s>{{item.description}}</s></td>
+				<td><s>{{item.isCompleted}}</s></td>
+				<td><a ng-click="remove(item.id)" href="">Remove Item</a>|<a ng-if="item.isCompleted == false" ng-click="completeItem(item.id)" href="">Mark As Done</a></td>
+				
+
+			</tr>
+			<tr>
+
+				<td><input type="hidden" ng-model="inputId"></td>
+				<td><input type="text" ng-model="inputTitle"></td>
+				<td><input type="text" ng-model="inputDesc"></td>
+				<td><input type="hidden" ng-model="inputIsCompleted"></td>
+				<td><a ng-click="add()" href="">Add Item</a></td>
+
+			</tr>
+
+
+
+		</table>
+		<form ng-submit="deleteItem()">
+			<input type="text" ng-model="deleteMe" /> <input type="submit"
+				name="Delete Item" /> {{deleteMeId}}
+		</form>
+	</div>
+	<!-- <div ng-controller="Hello">
+			<p>The ID is {{greeting.id}}</p>
+			<p>The content is {{greeting.content}}</p>
+		</div> -->
+</body>
+</html>

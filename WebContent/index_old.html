@@ -1,0 +1,80 @@
+<!doctype html>
+<html ng-app>
+<head>
+<title>Hello AngularJS</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
+<script>
+	function Hello($scope, $http) {
+		$http.get('http://localhost:8080/Panther/resources/item/').success(
+				function(data) {
+					$scope.items = data;
+				});
+		
+		$scope.remove=function(itemid){
+			alert("delteing"+itemid);
+			$http.delete('http://localhost:8080/Panther/resources/item/'+itemid).success(
+					function(test){
+					//alert("Deleted Item -" + $scope.deleteMe);
+					$http.get('http://localhost:8080/Panther/resources/item/').success(
+							function(data) {
+								$scope.items = data;
+							});
+					}
+					
+			);
+				
+	};
+	
+		$scope.deleteItem=function(){
+			//alert("delteing"+$scope.deleteMe);
+			$http.delete('http://localhost:8080/Panther/resources/item/'+$scope.deleteMe).success(
+					function(test){
+					alert("Deleted Item -" + $scope.deleteMe);
+					$http.get('http://localhost:8080/Panther/resources/item/').success(
+							function(data) {
+								$scope.items = data;
+							});
+					}
+					
+			);
+		};
+		
+		
+	}
+</script>
+</head>
+
+<body>
+	<div ng-controller="Hello">
+		<table>
+			<tr ng-repeat="item in items">
+				<td>
+					<table>
+						<tr>
+							<td><h3>{{item.id}}</h3> <a ng-click="remove(item.id)">Remove Item</a></td>
+						</tr>
+						<tr ng-repeat="(key,val) in item">
+							<td>{{key}}</td>
+							<td>{{val}}</td>
+						</tr>
+					</table>
+				<td>
+			<tr>
+			</tr>
+
+
+
+		</table>
+		<form ng-submit="deleteItem()">
+			<input type="text" ng-model="deleteMe" />
+<input type="submit" name="Delete Item" />
+				{{deleteMeId}}
+		</form>
+	</div>
+	<!-- <div ng-controller="Hello">
+			<p>The ID is {{greeting.id}}</p>
+			<p>The content is {{greeting.content}}</p>
+		</div> -->
+</body>
+</html>
