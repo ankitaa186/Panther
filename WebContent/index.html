@@ -1,16 +1,48 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="panther-app">
 <head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+
+
 <title>Hello AngularJS</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
+<script src="js/angular.js"></script>
 <script src="js/main.js">
+	
 </script>
 </head>
 
-<body>
-	<div ng-controller="Hello">
-	<a ng-click="hideCompleted()" href="">Show Completed - {{showCompletedBool}}</a>
+<body role="document">
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Panther - Task Tracker</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Home</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container" role="main" ng-controller="mainController">
+		<div class="page-header">
+			<h2>Task List</h2>
+		</div>
+		<a ng-click="hideCompleted()" href="">Show Completed -
+			{{showCompletedBool}}</a>
 		<table border=1>
 			<tr>
 				<th width=75px>id</th>
@@ -19,24 +51,29 @@
 				<th width=75px>Complete</th>
 				<th width=250px>Actions</th>
 			</tr>
-			<tr ng-repeat="item in items | filter:{isCompleted:false}"">
+			<tr ng-repeat="item in items | filter:{isCompleted:false}">
 
-				<td>{{item.id}}</td>
+				<td><a ng-click="selectItem(item.id)" href="">{{item.id}}</a></td>
 				<td>{{item.title}}</td>
 				<td>{{item.description}}</td>
 				<td>{{item.isCompleted}}</td>
-				<td><a ng-click="remove(item.id)" href="">Remove Item</a>|<a ng-if="item.isCompleted == false" ng-click="completeItem(item.id)" href="">Mark As Done</a></td>
-				
+				<td><a ng-click="remove(item.id)" href="">Remove Item</a>|<a
+					ng-if="item.isCompleted == false" ng-click="completeItem(item.id)"
+					href="">Mark As Done</a></td>
+
 
 			</tr>
-			<tr ng-if="showCompletedBool != false" ng-repeat="item in items | filter:{isCompleted:true}"">
+			<tr ng-if="showCompletedBool != false"
+				ng-repeat="item in items | filter:{isCompleted:true}"">
 
-				<td><s>{{item.id}}</s></td>
+				<td><s><a href="" ng-click="selectItem(item.id)">{{item.id}}</a></s></td>
 				<td><s>{{item.title}}</s></td>
 				<td><s>{{item.description}}</s></td>
 				<td><s>{{item.isCompleted}}</s></td>
-				<td><a ng-click="remove(item.id)" href="">Remove Item</a>|<a ng-if="item.isCompleted == false" ng-click="completeItem(item.id)" href="">Mark As Done</a></td>
-				
+				<td><a ng-click="remove(item.id)" href="">Remove Item</a>|<a
+					ng-if="item.isCompleted == false" ng-click="completeItem(item.id)"
+					href="">Mark As Done</a></td>
+
 
 			</tr>
 			<tr>
@@ -52,10 +89,42 @@
 
 
 		</table>
-		<form ng-submit="deleteItem()">
-			<input type="text" ng-model="deleteMe" /> <input type="submit"
-				name="Delete Item" /> {{deleteMeId}}
-		</form>
+		<br /> <br /> <br />
+		<!-- {{selectedItemId}} -->
+		<table ng-if="selectedItemId > 0" border="1">
+			<tr>
+				<th colspan="2"><b>{{selectedItem.title}}</b></th>
+			</tr>
+			<tr>
+				<td><b>Id</b></td>
+				<td>{{selectedItem.id}}</td>
+			</tr>
+			<tr>
+				<td><b>title</b></td>
+				<td>{{selectedItem.title}}</td>
+			</tr>
+			<tr>
+				<td><b>desc</b></td>
+				<td>{{selectedItem.description}}</td>
+			</tr>
+			<tr>
+				<td><b>isCompleted</b></td>
+				<td>{{selectedItem.isCompleted}}</td>
+			</tr>
+			<tr>
+				<td><b>insDttm</b></td>
+				<td>{{selectedItem.insDttm | date:'medium'}}</td>
+			</tr>
+			<tr>
+				<td><b>lastModDttm</b></td>
+				<td>{{selectedItem.lastModDttm | date:'medium'}}</td>
+			</tr>
+			<tr>
+				<td><b>Username</b></td>
+				<td>{{selectedItem.userBean.username}}</td>
+			</tr>
+
+		</table>
 	</div>
 	<!-- <div ng-controller="Hello">
 			<p>The ID is {{greeting.id}}</p>
