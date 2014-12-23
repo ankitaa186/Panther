@@ -3,19 +3,26 @@
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	href="css/bootstrap.min.css"/>
 
 <!-- Optional theme -->
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	href="css/bootstrap-theme.min.css"/>
+
+<script src="https://code.jquery.com/jquery.js"></script>
+
+<script src="js/bootstrap.js"></script>
+
+<style type="text/css" src="css/bootstrap.min.css">
+</style>
 
 
 
-<title>Hello AngularJS</title>
+<title>Project Panther - Ankit Agarwal</title>
 <script src="js/angular.js"></script>
 <script src="js/main.js">
-	
 </script>
+
 </head>
 
 <body role="document">
@@ -32,11 +39,12 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Home</a></li>
+					<li class="active"><a href="#">Home</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+
 	<div class="container" role="main" ng-controller="mainController">
 		<div class="page-header">
 			<h2>Task List</h2>
@@ -51,7 +59,7 @@
 				<th width=75px>Complete</th>
 				<th width=250px>Actions</th>
 			</tr>
-			<tr ng-repeat="item in items | filter:{isCompleted:false}">
+			<tr ng-repeat="item in items | filter:{isCompleted:'false'} | orderBy:'id':true">
 
 				<td><a ng-click="selectItem(item.id)" href="">{{item.id}}</a></td>
 				<td>{{item.title}}</td>
@@ -125,10 +133,23 @@
 			</tr>
 
 		</table>
-	</div>
-	<!-- <div ng-controller="Hello">
-			<p>The ID is {{greeting.id}}</p>
-			<p>The content is {{greeting.content}}</p>
-		</div> -->
+		
+	
+		<div class="footer">
+		<div class="well" >
+			Author - Ankit Agarwal | 
+			Project Name - Panther<br/>
+			Tech: 
+			JAX-RS - Jersey Impl | 
+			JACKSON JSON Parser |
+			JPA 2.1 - Hibernate Impl |
+				MySQL | 
+				AngularJS |
+				Boostrap 
+			
+		</div>
+		</div> 
+		</div>
+		
 </body>
 </html>
